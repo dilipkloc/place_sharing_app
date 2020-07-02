@@ -1,18 +1,21 @@
+# frozen_string_literal: true
+
 class PlacesController < ApplicationController
-  before_action :set_place, only: [:show, :edit, :update, :destroy]
+  before_action :set_place, only: %i[show edit update destroy]
 
   before_action :authenticate_user!
 
   # GET /places
   # GET /places.json
   def index
-    @places = Place.all
+    @places = Place.where(user_id: current_user.id)
+    # get the shared places with the logged in users
+    # current_user.places
   end
 
   # GET /places/1
   # GET /places/1.json
-  def show
-  end
+  def show; end
 
   # GET /places/new
   def new
@@ -20,16 +23,23 @@ class PlacesController < ApplicationController
   end
 
   # GET /places/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /places
   # POST /places.json
   def create
     @place = Place.new(place_params)
     @place.user_id = current_user.id
+
     respond_to do |format|
       if @place.save
+        if params['user_ids']
+          unless params['user_ids'].empty?
+            params['user_ids'].each do |id|
+              Group.create(user_id: id, place_id: @place.id)
+            end
+          end
+        end
         format.html { redirect_to @place, notice: 'Place was successfully created.' }
         format.json { render :show, status: :created, location: @place }
       else
@@ -64,13 +74,14 @@ class PlacesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_place
-      @place = Place.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def place_params
-      params.require(:place).permit(:x_axis, :y_axis, :user_id, :status_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_place
+    @place = Place.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def place_params
+    params.require(:place).permit(:x_axis, :y_axis, :user_id, :share_id)
+  end
 end

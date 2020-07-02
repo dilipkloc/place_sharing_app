@@ -8,7 +8,7 @@
       <th>X axis</th>
       <th>Y axis</th>
       <th>User</th>
-      <th>Status</th>
+      <th>Share</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
         <td><%= place.x_axis %></td>
         <td><%= place.y_axis %></td>
         <td><%= place.user_id %></td>
-        <td><%= place.status_id %></td>
+        <td><%= place.share_id %></td>
         <td><%= link_to 'Show', place %></td>
         <td><%= link_to 'Edit', edit_place_path(place) %></td>
         <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -7,6 +7,8 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
   </head>
 
   <body>
@@ -14,6 +16,9 @@
       <li class="nav-item"> <%= link_to "Account Setting", edit_user_registration_path %></li>
       <li class="nav-item"> <%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
     <% end %>
+
+    
+
     <%= yield %>
   </body>
 </html>

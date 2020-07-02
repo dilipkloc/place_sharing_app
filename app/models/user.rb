@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :places
+  # has_many :places
 
   has_many :groups
-  has_many :places, through: :group
+  has_many :places, through: :groups
 end

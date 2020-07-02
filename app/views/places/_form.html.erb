@@ -13,20 +13,51 @@
 
   <div class="field">
     <%= form.label :x_axis %>
-    <%= form.text_field :x_axis %>
+    <%= form.text_field :x_axis, :id => 'x_axis' %>
   </div>
 
   <div class="field">
     <%= form.label :y_axis %>
-    <%= form.text_field :y_axis %>
+    <%= form.text_field :y_axis, :id => 'y_axis' %>
   </div>
+
+  <% User.all.each do |user| %>
+    <div class="field">
+    <label class="form-label"><%= check_box_tag "user_ids[]", user.id, :id => "user_ids_#{user.id}" %><%= user.email %></label>
+  </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :status_id %>
-    <%= form.number_field :status_id %>
+    <%= form.collection_select :share_id, Share.all, :id, :name, prompt: "Select type" %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+      window.onload = init;
+      function init(){
+      var map = new ol.Map({
+              target: 'map',
+              layers: [
+                new ol.layer.Tile({
+                  source: new ol.source.OSM()
+                })
+              ],
+              view: new ol.View({
+                center: ol.proj.fromLonLat([0,0]),
+                zoom: 1 //Initial Zoom Level
+              })
+              
+            });
+    map.on('click', function(e){
+                console.log(e.coordinate);
+                document.getElementById('x_axis').value = e.coordinate[0];
+                document.getElementById('y_axis').value = e.coordinate[1];
+                
+            })
+        }
+</script>

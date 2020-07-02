@@ -16,8 +16,8 @@
 </p>
 
 <p>
-  <strong>Status:</strong>
-  <%= @place.status_id %>
+  <strong>Share:</strong>
+  <%= Share.find(@place.share_id).name %>
 </p>
 
 <%= link_to 'Edit', edit_place_path(@place) %> |
