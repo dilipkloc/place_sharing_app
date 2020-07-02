@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>X axis:</strong>
+  <%= @place.x_axis %>
+</p>
+
+<p>
+  <strong>Y axis:</strong>
+  <%= @place.y_axis %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @place.user_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @place.status_id %>
+</p>
+
+<%= link_to 'Edit', edit_place_path(@place) %> |
+<%= link_to 'Back', places_path %>

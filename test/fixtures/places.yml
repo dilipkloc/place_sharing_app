@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  x_axis: MyString
+  y_axis: MyString
+  user_id: 1
+  status_id: 1
+
+two:
+  x_axis: MyString
+  y_axis: MyString
+  user_id: 1
+  status_id: 1

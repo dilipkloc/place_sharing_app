@@ -9,6 +9,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'dotenv-rails', groups: %i[development test]
 gem 'jbuilder', '~> 2.7'
+gem 'pry'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
@@ -26,6 +27,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+  gem 'hirb'
 end
 
 group :test do

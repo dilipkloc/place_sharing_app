@@ -1,0 +1,32 @@
+<%= form_with(model: place, local: true) do |form| %>
+  <% if place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
+
+      <ul>
+        <% place.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :x_axis %>
+    <%= form.text_field :x_axis %>
+  </div>
+
+  <div class="field">
+    <%= form.label :y_axis %>
+    <%= form.text_field :y_axis %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status_id %>
+    <%= form.number_field :status_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
