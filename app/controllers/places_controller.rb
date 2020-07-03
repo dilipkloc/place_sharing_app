@@ -30,16 +30,9 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
     @place.user_id = current_user.id
-
     respond_to do |format|
       if @place.save
-        if params['user_ids']
-          unless params['user_ids'].empty?
-            params['user_ids'].each do |id|
-              Group.create(user_id: id, place_id: @place.id)
-            end
-          end
-        end
+        Group.create(user_id: current_user.id, place_id: @place.id)
         format.html { redirect_to @place, notice: 'Place was successfully created.' }
         format.json { render :show, status: :created, location: @place }
       else
@@ -82,6 +75,6 @@ class PlacesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def place_params
-    params.require(:place).permit(:x_axis, :y_axis, :user_id, :share_id)
+    params.require(:place).permit(:x_axis, :y_axis, :user_id, :share_id, :title)
   end
 end

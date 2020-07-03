@@ -4,6 +4,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    binding.pry
+    @user = User.find_by(username: params[:id])
   end
 end

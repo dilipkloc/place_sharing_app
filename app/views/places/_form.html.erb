@@ -12,13 +12,18 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
     <%= form.label :x_axis %>
-    <%= form.text_field :x_axis, :id => 'x_axis' %>
+    <%= form.text_field :x_axis, readonly: true, :id => 'x_axis' %>
   </div>
 
   <div class="field">
     <%= form.label :y_axis %>
-    <%= form.text_field :y_axis, :id => 'y_axis' %>
+    <%= form.text_field :y_axis, readonly: true, :id => 'y_axis' %>
   </div>
 
   <% User.all.each do |user| %>
