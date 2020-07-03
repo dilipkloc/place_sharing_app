@@ -8,6 +8,7 @@ ruby '2.7.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.5.0'
 gem 'devise'
+gem 'friendly_id', '~> 5.2.4'
 gem 'jbuilder', '~> 2.7'
 gem 'jquery-rails'
 gem 'pg', '>= 0.18', '< 2.0'

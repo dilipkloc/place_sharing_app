@@ -4,17 +4,17 @@
 
   <thead class="thead-dark">
     <tr>
+      <th>Name</th>
       <th>Email ID</th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
-      <% if user.email != current_user.email %>
-        <tr>
-          <td> <%= user.email %> </td>
-        </tr>
-      <% end %>
+      <tr>
+        <td> <%= user.first_name %> &nbsp <%= user.last_name %> </td>
+        <td> <%= user.email %> </td>
+      </tr>
     <% end %>
   </tbody>
 

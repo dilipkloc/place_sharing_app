@@ -48,13 +48,14 @@
                 })
               ],
               view: new ol.View({
+                projection: 'EPSG:4326',
                 center: ol.proj.fromLonLat([0,0]),
                 zoom: 1 //Initial Zoom Level
               })
               
             });
     map.on('click', function(e){
-                console.log(e.coordinate);
+                console.log(e);
                 document.getElementById('x_axis').value = e.coordinate[0];
                 document.getElementById('y_axis').value = e.coordinate[1];
                 

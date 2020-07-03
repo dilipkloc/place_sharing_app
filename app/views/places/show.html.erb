@@ -1,18 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>X axis:</strong>
-  <%= @place.x_axis %>
-</p>
-
-<p>
-  <strong>Y axis:</strong>
-  <%= @place.y_axis %>
-</p>
+<div id="map" style='width: 70%; margin: auto'>
+  <div id="popup"></div>
+</div>
 
 <p>
   <strong>User:</strong>
-  <%= @place.user_id %>
+  <% user = User.find(@place.user_id) %>
+  <%= user.first_name + ' ' + user.last_name %>
 </p>
 
 <p>
@@ -22,3 +17,39 @@
 
 <%= link_to 'Edit', edit_place_path(@place) %> |
 <%= link_to 'Back', places_path %>
+
+<script>
+
+
+
+
+var iconFeature = new ol.Feature({
+  geometry: new ol.geom.Point(ol.proj.fromLonLat([ 78.3984375, 23.203125])),
+  name: 'Somewhere near Nottingham',
+});
+var map = new ol.Map({
+  target: 'map',
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.OSM(),
+    }),
+    new ol.layer.Vector({
+      source: new ol.source.Vector({
+        features: [iconFeature]
+      }),
+      style: new ol.style.Style({
+        image: new ol.style.Icon({
+          anchor: [0.5, 46],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          src: 'https://openlayers.org/en/latest/examples/data/icon.png'
+        })
+      })
+    })
+  ],
+  view: new ol.View({
+    center: ol.proj.fromLonLat([78.3984375, 23.203125]),
+    zoom: 6
+  })
+});
+</script>

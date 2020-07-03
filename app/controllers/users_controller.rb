@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = User.where('email != ?', current_user.email)
+  end
+
+  def show
+    binding.pry
   end
 end
