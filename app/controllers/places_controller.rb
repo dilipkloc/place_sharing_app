@@ -10,7 +10,7 @@ class PlacesController < ApplicationController
   def index
     @places = Place.where(user_id: current_user.id)
     # get the shared places with the logged in users
-    # current_user.places
+    # @places_shared_with_me = current_user.places
   end
 
   # GET /places/1
