@@ -6,6 +6,7 @@
     <tr>
       <th>Name</th>
       <th>Email ID</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -14,6 +15,7 @@
       <tr>
         <td> <%= user.first_name %> &nbsp <%= user.last_name %> </td>
         <td> <%= user.email %> </td>
+        <td> <%= link_to 'Show', user_path(user) %> </td>
       </tr>
     <% end %>
   </tbody>
