@@ -1,3 +1,4 @@
+<div style = 'width: 40%; margin: auto'>
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -7,12 +8,12 @@
   <div class="field">
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name, autofocus: true, autocomplete: "email" %>
-  </div>
+  </div> <span id="firstError" style='color:red'></span>
 
   <div class="field">
     <%= f.label :last_name %><br />
     <%= f.text_field :last_name, autofocus: true, autocomplete: "email" %>
-  </div>
+  </div> <span id="lastError" style='color:red'></span>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -22,7 +23,7 @@
   <div class="field">
     <%= f.label :username %><br />
     <%= f.text_field :username, autofocus: true, autocomplete: "email" %>
-  </div>
+  </div> <span id="userError" style='color:red'></span>
 
   <div class="field">
     <%= f.label :password %>
@@ -38,8 +39,46 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", id: 'submit' %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<script>
+  var first_error = document.getElementById('user_first_name');
+  var last_error = document.getElementById('user_last_name');
+  var user_error = document.getElementById('user_username');
+  document.getElementById('new_user').addEventListener('submit',function(e){
+    if (first_error.value == "") {
+      document.getElementById('firstError').innerHTML = 'First name must have a value'
+      e.preventDefault();
+      setTimeout(function(){
+        document.getElementById('submit').disabled = false;
+      },100);
+    }else{
+      document.getElementById('firstError').innerHTML = ''
+    }
+    if (last_error.value == "") {
+      document.getElementById('lastError').innerHTML = 'Last name must have a value'
+      e.preventDefault();
+      setTimeout(function(){
+        document.getElementById('submit').disabled = false;
+      },100);
+    }else{
+      document.getElementById('lastError').innerHTML = ''
+    }
+    if (user_error.value == "") {
+      document.getElementById('userError').innerHTML = 'User name must have a value'
+      e.preventDefault();
+      setTimeout(function(){
+        document.getElementById('submit').disabled = false;
+      },100);
+    }else{
+      document.getElementById('userError').innerHTML = ''
+    }
+}, true)
+
+</script>
+
+</div>

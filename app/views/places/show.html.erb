@@ -3,28 +3,42 @@
 <div id="map" style='width: 70%; margin: auto'>
   <div id="popup"></div>
 </div>
+<div style="width: 50%; margin: auto;">
+  <p>
+    <strong>User:</strong><br/>
+    <% user = User.find(@place.user_id) %>
+    <%= user.first_name + ' ' + user.last_name %>
+  </p>
 
-<p>
-  <strong>User:</strong>
-  <% user = User.find(@place.user_id) %>
-  <%= user.first_name + ' ' + user.last_name %>
-</p>
+  <p>
+    <strong>x_axis:</strong>
+    <div id='x_axis'>
+      <%= @place.x_axis %>
+    </div>
+  </p>
 
-<p>
-  <strong>Share:</strong>
-  <%= Share.find(@place.share_id).name %>
-</p>
+  <p>
+    <strong>y_axis:</strong>
+    <div id='y_axis'>
+      <%= @place.y_axis %>
+    </div>
+  </p>
 
-<%= link_to 'Edit', edit_place_path(@place) %> |
-<%= link_to 'Back', places_path %>
+  <p>
+    <strong>Share:</strong><br/>
+    <%= Share.find(@place.share_id).name %>
+  </p>
 
+  <%= link_to '<button class="btn btn-secondary"> Edit </button>'.html_safe, edit_place_path(@place) %> 
+  <%= link_to '<button class="btn btn-secondary"> Back </button>'.html_safe, places_path %>
+</div>
 <script>
 
 
 
 
 var iconFeature = new ol.Feature({
-  geometry: new ol.geom.Point(ol.proj.fromLonLat([ 78.3984375, 23.203125])),
+  geometry: new ol.geom.Point(ol.proj.fromLonLat([ parseFloat(document.getElementById('x_axis').innerHTML.trim()), parseFloat(document.getElementById('y_axis').innerHTML.trim())])),
   name: 'Somewhere near Nottingham',
 });
 var map = new ol.Map({
@@ -48,7 +62,7 @@ var map = new ol.Map({
     })
   ],
   view: new ol.View({
-    center: ol.proj.fromLonLat([78.3984375, 23.203125]),
+    center: ol.proj.fromLonLat([parseFloat(document.getElementById('x_axis').innerHTML.trim()), parseFloat(document.getElementById('y_axis').innerHTML.trim())]),
     zoom: 6
   })
 });

@@ -1,4 +1,4 @@
-<%= form_with(model: place, local: true) do |form| %>
+<%= form_with(model: place, local: true, id: 'new_place') do |form| %>
   <% if place.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
@@ -14,23 +14,28 @@
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
-  </div>
+  </div> <span id="titleError" style='color:red'></span>
 
   <div class="field">
     <%= form.label :x_axis %>
     <%= form.text_field :x_axis, readonly: true, :id => 'x_axis' %>
-  </div>
+  </div> <span id="xAxisError" style='color:red'></span>
 
   <div class="field">
     <%= form.label :y_axis %>
     <%= form.text_field :y_axis, readonly: true, :id => 'y_axis' %>
-  </div>
+  </div> <span id="yAxisError" style='color:red'></span>
 
-  <% User.all.each do |user| %>
-    <div class="field">
-    <label class="form-label"><%= check_box_tag "user_ids[]", user.id, :id => "user_ids_#{user.id}" %><%= user.email %></label>
+  <div id='group'>
+    <b> Other Users </b>
+    <% User.all.each do |user| %>
+      <% if user.id != current_user.id %>
+        <div class="field">
+          <label class="form-label"><%= check_box_tag "user_ids[]", user.id, :id => "user_ids_#{user.id}" %><%= user.email %></label>
+        </div>
+      <% end %>
+    <% end %>
   </div>
-  <% end %>
 
   <div class="field">
     <%= form.label :status_id %>
@@ -38,13 +43,15 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'submit', id: 'submit' %>
   </div>
 <% end %>
 
 <script type="text/javascript">
+  document.getElementById("group").style.display = "none"
       window.onload = init;
       function init(){
+        
       var map = new ol.Map({
               target: 'map',
               layers: [
@@ -66,4 +73,48 @@
                 
             })
         }
+        var title_error = document.getElementById('place_title');
+        var x_axis_error = document.getElementById('x_axis');
+        var y_axis_error = document.getElementById('y_axis');
+        var status = document.getElementById('place_share_id');
+        
+        document.getElementById('place_share_id').addEventListener('change',function(e){
+            var x = document.getElementById("group");
+            if (document.getElementById('place_share_id').value == 2){
+                x.style.display = "block";  
+            }else{
+              x.style.display = "none";
+            }
+        })
+
+        document.getElementById('new_place').addEventListener('submit',function(e){
+        if (title_error.value == "") {
+          document.getElementById('titleError').innerHTML = 'Tile must have a value'
+          e.preventDefault();
+          setTimeout(function(){
+            document.getElementById('submit').disabled = false;
+          },100);
+        }else{
+          document.getElementById('titleError').innerHTML = ''
+        }
+        if (x_axis_error.value == "") {
+          document.getElementById('xAxisError').innerHTML = 'X-Axis must be choosen from the map'
+          e.preventDefault();
+          setTimeout(function(){
+            document.getElementById('submit').disabled = false;
+          },100);
+        }else{
+          document.getElementById('xAxisError').innerHTML = ''
+        }
+        if (y_axis_error.value == "") {
+          document.getElementById('yAxisError').innerHTML = 'X-Axis must be choosen from the map'
+          e.preventDefault();
+          setTimeout(function(){
+            document.getElementById('submit').disabled = false;
+          },100);
+        }else{
+          document.getElementById('yAxisError').innerHTML = ''
+        }
+      }, true)
+        
 </script>

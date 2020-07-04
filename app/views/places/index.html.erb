@@ -3,7 +3,16 @@
 
 <div class='container'>
   <table class="table table-striped ">
-    <h1>Places Shared By Me</h1>
+    <tr>
+      <td>
+        <h1 >Places Shared By Me</h1>
+      </td>
+      <td></td>
+      <td></td>
+      <td>
+        <%= link_to '<button class="btn btn-dark" style="padding-right:5px;">New Place</button>'.html_safe, new_place_path %>
+      </td>
+    </tr>
     <thead class="thead-dark">
       <tr>
         <th>Title</th>
@@ -18,9 +27,9 @@
           <td><%= place.title %></td>
           <td><%= current_user.email %></td>
           <td><%= Share.find(place.share_id).name %></td>
-          <td><%= link_to 'Show', place %></td>
-          <td><%= link_to 'Edit', edit_place_path(place) %></td>
-          <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Show', place %>
+          <%= link_to 'Edit', edit_place_path(place) %>
+          <%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -49,7 +58,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to '<button class="btn btn-dark">New Place</button>'.html_safe, new_place_path %>
+  
 </div>
 <br>
 
